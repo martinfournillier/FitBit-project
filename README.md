@@ -96,7 +96,3 @@ JOIN dupes
 ON t.Id = dupes.Id AND t.ActivityDate = dupes.ActivityDate
 ORDER BY Id, ActivityDate
 
-
-
-
-## R
