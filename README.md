@@ -1,6 +1,4 @@
-# FitBit-project
-
-## SQL
+# SQL Codes
 
 ##### To aggregate period 1 (3rd to 4th) tables, the same code is repeated for period 2 (4th to 5th):
 CREATE TABLE  groovy-patrol-473812-c8.3_to_4_2016.fitbit_tracker_data_period1 AS
