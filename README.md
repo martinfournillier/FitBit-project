@@ -96,3 +96,24 @@ JOIN dupes
 ON t.Id = dupes.Id AND t.ActivityDate = dupes.ActivityDate
 ORDER BY Id, ActivityDate
 
+##### To merge duplicate rows and create clean table
+CREATE TABLE `groovy-patrol-473812-c8.fitbit.both_periods_clean` AS
+SELECT
+  Id, ActivityDate,
+  sum(TotalSteps) AS TotalSteps, 
+  sum(LoggedActivitiesDistance) AS loged_activities_dist, 
+  sum(SedentaryMinutes) AS sed_mins, 
+  sum(LightlyActiveMinutes) AS light_active_mins, 
+  sum(FairlyActiveMinutes) AS fairly_active_mins, 
+  sum(VeryActiveMinutes) AS very_active_mins, 
+  sum(total_calories) AS total_cals, 
+  avg(intensity_avg_perMin) AS avg_intens_PerMin, 
+  sum(sleep_mins) AS sleep_mins, 
+  sum(total_steps_min) AS TotalSteps_mins, 
+  avg(weightKg) AS weight_kg, 
+  avg(BMI) AS BMI, 
+  sum(total_METs) AS total_MET
+  FROM `groovy-patrol-473812-c8.fitbit.both_periods`
+  GROUP BY Id, ActivityDate
+  ORDER BY Id, ActivityDate
+
