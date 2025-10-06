@@ -1,5 +1,5 @@
 # R codes
-
+install.packages("tidyverse")
 library('tidyverse')
 library('readxl')
 fitbit = read.csv("fitbit.csv")
@@ -68,5 +68,36 @@ view(matrix_class)
 
 #### Viz
 
+#### Summarize counts
+matrix_summary <- matrix_class %>%
+  count(lifestyle, Activity)
+
+#### Heatmap
+
+###### Create numeric activity score
+matrix_summary <- matrix_summary %>%
+  mutate(
+    lifestyle_score = case_when(
+      lifestyle == "Sedentary" ~ 1,
+      lifestyle == "Low Active" ~ 2,
+      lifestyle == "Somewhat Active" ~ 3,
+      lifestyle == "Active" ~ 4,
+      lifestyle == "Highly Active" ~ 5
+    ),
+    activity_score = ifelse(Activity == "Active", 1, 0),
+    combined_score = lifestyle_score + activity_score
+  )
+
+###### Heatmap shaded by combined score
+
+ggplot(matrix_summary, aes(x = Activity, y = lifestyle, fill = combined_score)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = n), color = "black", size = 5) +
+  scale_fill_gradient(low = "red3", high = "green") +
+  labs(title = "Users' Lifestyle",
+       x = "Activity Level", y = "Lifestyle",
+       fill = "Activity Score") +
+  theme_classic()
+  
   
 
